@@ -4,7 +4,7 @@ const mongoURI =
 const mongoDB = async() => {
   try {
     await mongoose.connect(mongoURI);
-    // await mongoose.connect(mongoURI, { useNewUrlParser: true });
+    await mongoose.connect(mongoURI, { useNewUrlParser: true });
     console.log("connected");
     const fetched_data = await mongoose.connection.db.collection("fooditems");
     fetched_data.find({}).toArray(function(err, data){

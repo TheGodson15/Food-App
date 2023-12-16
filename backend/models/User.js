@@ -19,10 +19,10 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    date:{
-        type: date,
+    date: {
+        type: Date,
         default: Date.now
-    }
+    }    
 });
 
-moudle.exports = mongoose.model('user',UserSchema);
+module.exports = mongoose.model('user', UserSchema);
