@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const mongoURI =  "mongodb+srv://GoFoodMERN:GoFoood1212@cluster0.mu8dnmx.mongodb.net/GoFoodMern?retryWrites=true&w=majority";
-// const mongoURI =  "mongodb+srv://GoFoodMERN:GoFoood1212@cluster0.mu8dnmx.mongodb.net/GoFoodMern?retryWrites=true&w=majority";
+// const mongoURI =  "mongodb+srv://GoFoodMERN:GoFoood1212@cluster0.mu8dnmx.mongodb.net/GoFoodMern?retryWrites=true&w=majority"; //3.7
+// const mongoURI =  "mongodb+srv://GoFoodMERN:GoFoood1212@cluster0.mu8dnmx.mongodb.net/GoFoodMern?retryWrites=true&w=majority"; //2.2.2
 const mongoDB = async() => {
   try {
     await mongoose.connect(mongoURI);
