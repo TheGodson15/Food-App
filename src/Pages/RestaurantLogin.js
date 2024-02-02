@@ -7,7 +7,7 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:5000/api/loginuser", {
+    const response = await fetch("http://localhost:5000/api/restaurantLogin", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -35,12 +35,12 @@ export default function Login() {
   return (
     <>
     <div className='container'>
+    <h4>Restaurant Signin</h4>
       <form onSubmit={handleSubmit}>
          
         <div className="mb-3">
           <label htmlFor="email" className="form-label">Email address</label>
-          <input type="email" className="form-control" name='email' value={credentials.email} onChange={onChange} />
-          <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+          <input type="email" className="form-control" name='email' value={credentials.email} onChange={onChange} /> 
         </div>
         <div className="mb-3">
           <label htmlFor="password" className="form-label">Password</label>
@@ -48,14 +48,11 @@ export default function Login() {
         </div>
         
         
-        <button type="submit" className="btn btn-success">Login</button>
-        <Link className="m-3 btn btn-danger" to="/createuser">
-                Create your Account
+        <button type="submit" className="btn btn-success">Submit</button>
+        <Link className="m-3 btn btn-danger" to="/restaurantSignup">
+                Create a New Account
               </Link> 
       </form>
-      <Link className="btn bg-white text-success mx-1" to="/restaurantLogin">
-                 Login as restaurant owner?
-                 </Link>
     </div>
 
   </>

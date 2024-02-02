@@ -7,6 +7,11 @@ import "../node_modules/bootstrap/dist/js/bootstrap.bundle";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
 import Signup from "./Pages/Signup.js";
 import { CartProvider } from "./components/ContextReducer.js";
+import ResturantLogin from "../src/Pages/RestaurantLogin.js"
+import ResturantSignup from "../src/Pages/RestaurantSignUp.js"
+import AddItem from "../src/Pages/AddItem.js"
+import Cart from "./Pages/Cart.js";
+import MyOrder from "./Pages/MyOrder.js";
 
 function App() {
   return (
@@ -16,6 +21,13 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/createuser" element={<Signup />} />
+          {/* <Route path="/myOrder" element={<MyOrder/>} />  */}
+          
+          <Route path="/restaurantSignup" element={<ResturantSignup/>} /> 
+          <Route path="/cart" element={<Cart/>} /> 
+          <Route path="/MyOrders" element={<MyOrder/>} /> 
+          <Route path="/restaurantLogin" element={<ResturantLogin/>} /> 
+          <Route path="/addItem" element={<AddItem/>} /> 
         </Routes>
       </Router>
     </CartProvider>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-// import Slider from "../components/Slider";
+import Slider from "../components/Slider";
 import Body from "../components/Body";
 import Footer from "../components/Footer";
 
@@ -126,9 +126,9 @@ export default function Home() {
                       >
                         {/* Assuming Body component here. Adjust as needed */}
                         <Body
-                          foodName={filterItems.name}
+                          foodItem = {filterItems}
                           options={filterItems.options[0]}
-                          imgSrc={filterItems.img}
+                         
                         />
                       </div>
                     ))

@@ -3,13 +3,12 @@ const User = require('../models/user_model')
 const router = express.Router()
 const bcrypt = require('bcryptjs')
 const jwt =require('jsonwebtoken')
-const RestaurantUser = require('../models/res_user_model')
 require('dotenv').config();
 
-router.post("/restaurantLogin", async (req, res) => {
+router.post("/verifyuser", async (req, res) => {
     let email = req.body.email;
     try { 
-        let userData = await RestaurantUser.findOne({ email });
+        let userData = await User.findOne({ email });
 
         if (!userData) {
             return res.status(400).json({ error: "Email already registered" })
@@ -29,7 +28,7 @@ router.post("/restaurantLogin", async (req, res) => {
         const authToken =  jwt.sign(data, secretKey)
 
         return res.json({ success: true, authToken: authToken })
-
+ 
 
     } catch (error) {
         console.log('error-----------', error)
@@ -40,3 +39,5 @@ router.post("/restaurantLogin", async (req, res) => {
 
 module.exports = router;
 
+
+ 

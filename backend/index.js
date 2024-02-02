@@ -19,9 +19,18 @@ app.get('/', (req, res) => {
 })
 app.use(express.json());
 app.use('/api', require("./Routes/CreateUser"));
+app.use('/api', require("./Routes/verifyUser"));
 app.use('/api', require("./Routes/DisplayData"));
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 }) 
-// app.use('/api', require("./Routes/restaurantCreateUser"))
-// app.use('/api', require("./Routes/restaurantVerifyUser"))
+app.use('/api', require("./Routes/createFoodItem")) 
+app.use('/api', require("./Routes/foodItem")) 
+
+
+app.use('/api', require("./Routes/restaurantCreateUser"))
+app.use('/api', require("./Routes/restaurantCreateUser"))
+app.use('/api', require("./Routes/orderData")) 
+app.use('/api', require("./Routes/restaurantVerifyUser"))
+
+// app.listen(5000)

@@ -22,10 +22,11 @@ const FoodItemSchema = new Schema({
     }
   }],
   description: {
-    type: String
+    type: String,
+    require: true
   }
 });
 
-const FoodItem = mongoose.model('food_item', FoodItemSchema);
+const FoodItem = mongoose.model('fooditem', FoodItemSchema);
 
 module.exports = FoodItem;
