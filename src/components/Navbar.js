@@ -8,8 +8,7 @@ import { useCart } from './ContextReducer';
 import logo from "../assets/logo2.png"
 
 
-export default function Header() {
-
+export default function Navbar() {
   const [cartView, setCartView] = useState(false)
   localStorage.setItem('temp', "first")
   const navigate = useNavigate();

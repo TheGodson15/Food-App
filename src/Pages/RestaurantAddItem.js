@@ -45,7 +45,7 @@ export default function AddItem() {
 
     let response;
     try {
-       response =  await fetch('http://localhost:4000/api/createfooditem', {
+       response =  await fetch('http://localhost:5000/api/createfooditem', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

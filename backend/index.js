@@ -14,10 +14,16 @@ app.use((req,res,next)=>{
 
 mongoDB();
 
+
+
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 app.use(express.json());
+
+const { swaggerServe, swaggerSetup } = require('./config')
+app.use("/api-docs", swaggerServe, swaggerSetup);
+
 app.use('/api', require("./Routes/CreateUser"));
 app.use('/api', require("./Routes/verifyUser"));
 app.use('/api', require("./Routes/DisplayData"));

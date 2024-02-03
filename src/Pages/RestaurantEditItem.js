@@ -63,7 +63,7 @@ export default function EditItem( ) {
 
     let response;
     try {
-       response =  await fetch('http://localhost:4000/api/editfooditem', {
+       response =  await fetch('http://localhost:5000/api/editfooditem', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -12,11 +12,13 @@ import ResturantSignup from "../src/Pages/RestaurantSignUp.js"
 import AddItem from "../src/Pages/AddItem.js"
 import Cart from "./Pages/Cart.js";
 import MyOrder from "./Pages/MyOrder.js";
+import Navbar from "./components/Navbar.js";
 
 function App() {
   return (
     <CartProvider>
       <Router>
+      <Navbar />
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/login" element={<Login />} />

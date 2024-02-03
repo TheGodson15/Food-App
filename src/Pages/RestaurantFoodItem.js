@@ -9,7 +9,7 @@ export default function RestaurantFoodItem() {
   const [foodRestaurentItem, setRestaurentFoodItem] = useState([]);
 
   const loadRestaurentData = async () => {
-    let response = await fetch(`http://localhost:4000/api/fooditemid`,{
+    let response = await fetch(`http://localhost:5000/api/fooditemid`,{
       method:'POST',
       headers:{
         'Content-Type':'application/json'

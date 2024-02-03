@@ -1,5 +1,5 @@
 const express = require('express')
-const User = require('../models/user_model')
+const User = require('../models/User')
 const router = express.Router()
 const bcrypt = require('bcryptjs')
 const jwt =require('jsonwebtoken')
@@ -25,7 +25,7 @@ router.post("/restaurantLogin", async (req, res) => {
                 id: userData.id
              }
         }
-        const secretKey = process.env.TOKEN_SIGN
+        const secretKey = "SflKxwRJSMeKKF2QT"
         const authToken =  jwt.sign(data, secretKey)
 
         return res.json({ success: true, authToken: authToken })

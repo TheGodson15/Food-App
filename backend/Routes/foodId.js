@@ -4,23 +4,29 @@ const router = express.Router()
 const FoodItem = require('../models/food_item');
 const Category = require('../models/food_category');
 
-router.get("/fooditem", async (req, res) => { 
+router.post("/foodid", async (req, res) => { 
     try { 
+      const foodId = req.body._id;
+
+   
+
+      if (!foodId) {
+        return res.status(400).json({ error: 'Restaurant ID is required.' });
+      }
+
+      let foodItem  
         
         try {
-            const foodItem = await FoodItem.find({}) 
-            global.fooditem = foodItem
+               foodItem = await FoodItem.find({"_id":foodId}) 
+
+            console.log("LIST 1",foodItem)
+            
           } catch (err) {
             console.log("FoodItemError",err)
           }
 
-          try {
-            const foodCategory = await Category.find({}) 
-            global.foodcategory = foodCategory
-          } catch (err) {
-            console.log("categoryError",err)
-          }
-        return res.send([global.fooditem, global.foodcategory] )
+         
+        return res.send( foodItem    )
 
     } catch (error) {
         console.log('error-----------', error)

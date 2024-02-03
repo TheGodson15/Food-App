@@ -8,6 +8,6 @@ const CategorySchema = new Schema({
   } 
 });
 
-const Category = mongoose.model('food_category', CategorySchema);
+const Category = mongoose.model('foodCategory', CategorySchema);
 
 module.exports = Category;

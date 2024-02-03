@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
-import Slider from "../components/Slider";
+
+// import Slider from "../components/Slider";
 import Body from "../components/Body";
 import Footer from "../components/Footer";
 
@@ -29,7 +29,7 @@ export default function Home() {
 
   return (
     <div className="Homepage">
-      <Navbar />
+
       {/* <Slider /> */}
       <div
         id="carouselExampleFade"
