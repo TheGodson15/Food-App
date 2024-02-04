@@ -6,7 +6,7 @@ const jwt =require('jsonwebtoken')
 const RestaurantUser = require('../models/res_user_model')
 require('dotenv').config();
 
-router.post("/restaurantLogin", async (req, res) => {
+router.post("/rverifyuser", async (req, res) => {
     let email = req.body.email;
     try { 
         let userData = await RestaurantUser.findOne({ email });

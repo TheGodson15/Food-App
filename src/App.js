@@ -13,6 +13,13 @@ import AddItem from "../src/Pages/AddItem.js"
 import Cart from "./Pages/Cart.js";
 import MyOrder from "./Pages/MyOrder.js";
 import Navbar from "./components/Navbar.js";
+import RestaurantFoodItem from './Pages/RestaurantFoodItem.js';
+import EditItem from './Pages/RestaurantEditItem.js';
+import RestaurantPage from './Pages/RestaurantPage.js'
+import RestaurantOrder from './Pages/RestaurantOrder.js'
+
+
+
 
 function App() {
   return (
@@ -29,7 +36,12 @@ function App() {
           <Route path="/cart" element={<Cart/>} /> 
           <Route path="/MyOrders" element={<MyOrder/>} /> 
           <Route path="/restaurantLogin" element={<ResturantLogin/>} /> 
+          <Route path="/restaurantFoodItem/:id" element={<RestaurantFoodItem/>} />
           <Route path="/addItem" element={<AddItem/>} /> 
+          <Route path="/editItem/:id" element={<EditItem/>} />  
+          <Route path="/restaurant/:id" element={<RestaurantPage/>} /> 
+          <Route path="/restaurantOrder" element={<RestaurantOrder/>} /> 
+
         </Routes>
       </Router>
     </CartProvider>

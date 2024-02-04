@@ -1,13 +1,29 @@
 import React, {useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 
-export default function Login() {
+export default function Login(async ) {
   const [credentials, setcredentails] = useState({   email: "", password: ""  });
   let navigate = useNavigate()
-
+  
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:5000/api/restaurantLogin", {
+
+  const restaurantID = await fetch("http://localhost:5000/api/restaurantusersId", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({  email: credentials.email  })
+
+  })
+
+  const id =  await restaurantID.json()
+  console.log('id', id[0]._id)
+
+ 
+    e.preventDefault();
+    const response = await fetch("http://localhost:5000/api/rverifyuser", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -22,13 +38,16 @@ export default function Login() {
     if (!json.success) {
       alert("Enter Valid Credentails")
     }
-
     if (json.success) {
-      localStorage.setItem('restaurantEmail', credentials.email)
-      localStorage.setItem("authToken", json.authToken)
-      navigate("/")
+
+      
+      localStorage.setItem('restaurantID',id[0]._id)
+      localStorage.setItem("rauthToken", json.authToken)
+      navigate(`/restaurantFoodItem/${id[0]._id}`)
+      console.log("rtoken",localStorage.getItem("rauthToken"))
     }
-  };
+  
+};
   const onChange = (event) => {
     setcredentails({ ...credentials, [event.target.name]: event.target.value })
   }

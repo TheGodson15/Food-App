@@ -32,6 +32,6 @@ const RestaurantUserSchema = new Schema({
   }
 });
 
-const RestaurantUser = mongoose.model('RestaurantUser', RestaurantUserSchema);
+const RestaurantUser = mongoose.model('Restaurantusers', RestaurantUserSchema);
 
 module.exports = RestaurantUser;

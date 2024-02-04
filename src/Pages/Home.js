@@ -1,45 +1,67 @@
-import React, { useEffect, useState } from "react";
-
-// import Slider from "../components/Slider";
-import Body from "../components/Body";
-import Footer from "../components/Footer";
+import React, {useEffect, useState} from 'react'  
+import Card from '../components/Card'
+import RestaurantCard from '../components/RestaurantCard';
 
 export default function Home() {
-  const [foodCat, setFoodCat] = useState([]);
-  const [foodItem, setFoodItem] = useState([]);
+
   const [search, setSearch] = useState('');
 
+  const [foodCategory, setFoodCategory] = useState([]);
+  const [foodItem, setFoodItem] = useState([]);
+
+  const [restaurants, setrestaurants] = useState([]);
+
   const loadData = async () => {
-    let response = await fetch("http://localhost:5000/api/foodData", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+    let response = await fetch('http://localhost:5000/api/fooditem',{
+      method:"GET",
+      header:{
+        'Content-Type':'application/json'
+      }
     });
-    response = await response.json();
-    setFoodItem(response[0]);
-    setFoodCat(response[1]);
+    response = await response.json()
 
-    // console.log(response[0], response[1]);
-  };
+    setFoodItem(response[0])
+    setFoodCategory(response[1])
 
-  useEffect(() => {
-    loadData();
-  }, []);
+    console.log(response[0], response[1])
+  }
+
+  const loadRestaurants = async () => {
+    let response = await fetch('http://localhost:5000/api/restaurantusers',{
+      method:"GET",
+      header:{
+        'Content-Type':'application/json'
+      }
+    });
+    response = await response.json()
+
+    setrestaurants(response ) 
+
+ console.log(restaurants )
+  }
+
+  useEffect(()=>{
+    loadData()
+    loadRestaurants()
+  },[])
+
+  
 
   return (
-    <div className="Homepage">
-
-      {/* <Slider /> */}
-      <div
+    <>  
+   {/* Carousel */}
+   <div
         id="carouselExampleFade"
         className="carousel slide carousel-fade"
         data-bs-ride="carousel"
         style={{ objectFit: "contain !important" }}
       >
         <div className="carousel-inner" id="carousel">
+        
           <div className="carousel-caption" style={{ zIndex: "10" }}>
+         
             <form className="d-flex justify-content-center">
+              
               <input
                 className="form-control me-2"
                 type="search"
@@ -74,7 +96,7 @@ export default function Home() {
           </div>
           <div className="carousel-item">
             <img
-              src="https://source.unsplash.com/random/900×700/?momos"
+              src="https://source.unsplash.com/random/900×700/?meat"
               className="d-block w-100"
               style={{ filter: "brightness(30%)" }}
               alt="..."
@@ -105,42 +127,67 @@ export default function Home() {
           ></span>
           <span className="visually-hidden">Next</span>
         </button>
-      </div>
+      </div>  
+    
 
 
-      {/* // Body */}
-      <div className="container">
-        {foodCat.length !== 0
-          ? foodCat.map((data) => (
-              <div key={data.id} className="row mb-3">
-                <div className="fs-3">{data.CategoryName}</div>
-                <hr />
-
-                {foodItem.length !== 0 ? (
-                  foodItem
-                  .filter((item) => (item.CategoryName === data.CategoryName) && (item.name.toLowerCase().includes(search.toLocaleLowerCase())))
-                  .map((filterItems) => (
-                      <div
-                        key={filterItems._id}
-                        className="col-12 col-md-6 col-lg-3"
-                      >
-                        {/* Assuming Body component here. Adjust as needed */}
-                        <Body
-                          foodItem = {filterItems}
-                          options={filterItems.options[0]}
-                         
-                        />
+        <div className='container'>
+          { (foodCategory.length !== 0)?
+             foodCategory.map((data)=>{
+              return (
+              <div className='row mb-3 '>
+                <div key={data._id} className="fs-3 m-3">
+                  {data.CategoryName}
+                  </div>
+                <hr/> 
+                {
+                   foodItem.length !== 0 ? foodItem.filter((item)=> item.CategoryName === data.CategoryName && (item.name.toLowerCase().includes(search.toLocaleLowerCase()))) 
+                  .map(filterItems=>{
+                    return(
+                      <div key={filterItems._id} className='col-12 col-md-6 col-lg-3'>
+                        <Card 
+                        foodItem = {filterItems}
+                       options={filterItems.options[0] }
+                        ></Card> 
                       </div>
-                    ))
-                ) : (
-                  <div>No Such Data Found</div>
-                )}
+                    )
+                  }): <div> No Such Data Found</div>
+                }
               </div>
-            ))
-          : null}
-      </div>
+                )
+            }) : <div>No Such Data Found</div> 
+          }
+          
+        </div>
+        {(!localStorage.getItem("rauthToken")) ?
+        <div className='container'>
+   
+        <div className='row mb-3 '>
+          <div  className="fs-3 m-3">
+            Restaurants
+            </div>
+          <hr/> 
+          {
+             restaurants.length !== 0 ? restaurants.map((restaurant)=>{
+              return(
+                <div key={restaurant._id} className='col-12 col-md-6 col-lg-3'>
+                
+                  
 
-      <Footer />
-    </div>
-  );
+                  <RestaurantCard restaurants = {restaurant}/>
+
+                </div>
+              )
+            }): <div> No Such Data Found</div>
+          }
+        </div> 
+  </div>
+  : ""
+}
+
+        
+     
+    
+    </>
+  )
 }

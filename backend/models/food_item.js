@@ -5,15 +5,15 @@ const { Schema } = mongoose;
 const FoodItemSchema = new Schema({
   CategoryName: {
     type: String,
-    require: true
+    required: true
   }, 
   name: {
     type: String,
-    require: true
+    required: true
   },  
   img: {
     type: String,
-    require: true
+    required: true
   }, 
   options:[{
     varient:{
@@ -23,7 +23,7 @@ const FoodItemSchema = new Schema({
   }],
   description: {
     type: String,
-    require: true
+    required: true
   }
 });
 

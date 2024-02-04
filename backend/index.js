@@ -33,10 +33,16 @@ app.listen(port, () => {
 app.use('/api', require("./Routes/createFoodItem")) 
 app.use('/api', require("./Routes/foodItem")) 
 
-
-app.use('/api', require("./Routes/restaurantCreateUser"))
 app.use('/api', require("./Routes/restaurantCreateUser"))
 app.use('/api', require("./Routes/orderData")) 
 app.use('/api', require("./Routes/restaurantVerifyUser"))
+
+app.use('/api', require("./routes/editFoodItem"))
+app.use('/api', require("./routes/foodId")) 
+app.use('/api', require("./routes/foodItemId"))
+app.use('/api', require("./routes/RestaurantOrderData"))  
+app.use('/api', require("./routes/restaurantusers"))
+app.use('/api', require("./routes/updateOrderConfirmation"))
+app.use('/api', require("./routes/restaurantusersId"))
 
 // app.listen(5000)
