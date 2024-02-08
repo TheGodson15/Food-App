@@ -1,56 +1,62 @@
 const express = require('express')
 const router = express.Router()  
-const Order = require('../models/Orders'); 
+const Order = require('../models/Orders');  
 
-router.post('/orderData', async (req, res) => {
-    let data = req.body.order_data
-    await data.splice(0,0,{Order_date:req.body.order_date})
-    console.log("1231242343242354",req.body.email)
+router.post('/restaurantOrderData', async (req, res) => {
+ 
 
-    //if email not exisitng in db then create: else: InsertMany()
-    let eId = await Order.findOne({ 'email': req.body.email })    
-    console.log(eId)
-    if (eId===null) {
-        try {
-            console.log(data)
-            console.log("1231242343242354",req.body.email)
-            await Order.create({
-                email: req.body.email,
-                order_data:[data]
-            }).then(() => {
-                res.json({ success: true })
-            })
-        } catch (error) {
-            console.log(error.message)
-            res.status("Server Error", error.message)
-
-        }
-    }
-
-    else {
-        try {
-            await Order.findOneAndUpdate({email:req.body.email},
-                { $push:{order_data: data} }).then(() => {
-                    res.json({ success: true })
-                })
-        } catch (error) {
-            console.log(error.message)
-            res.status("Server Error", error.message)
-        }
-    }
-})
-
-router.post('/restaurentOrderData', async (req, res) => {
     try {
-        console.log(req.body.restaurentName)
-        let eId = await Order.findOne({ 'restaurentName': req.body.restaurentName })
-        //console.log(eId)
-        res.json({orderData:eId})
-    } catch (error) {
-        res.status("Error",error.message)
-    }
-    
+        const { restaurantId } = req.body;
 
+        // Find orders that match the RestaurantId
+        const orders = await Order.find({
+            'order_data': {
+                $elemMatch: {
+                    $elemMatch: { 'RestaurantId': restaurantId }
+                }
+            }
+        });
+
+        // Filter out order_data that doesn't have the specified RestaurantId
+        const filteredOrders = orders.map(order => ({
+            ...order.toObject(),
+            order_data: order.order_data.filter(item => item.some(i => i.RestaurantId === restaurantId))
+        }));
+
+        res.json({ orderData: filteredOrders });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 });
 
-module.exports = router
+router.put('/updateOrderConfirmation', async (req, res) => {
+    try {
+        const { orderId, foodId } = req.body;
+
+        // Find the order by orderId and update orderConfirmation to true
+        const updatedOrder = await Order.findOneAndUpdate(
+            {
+                '_id': orderId,
+                'order_data': {
+                    $elemMatch: {
+                        $elemMatch: { 'id': foodId, 'orderConfirmation': false }
+                    }
+                }
+            },
+            { $set: { 'order_data.$[outer].$[inner].orderConfirmation': true } },
+            { arrayFilters: [{ 'outer.id': foodId }, { 'inner.id': foodId, 'inner.orderConfirmation': false }], new: true }
+        );
+
+        if (!updatedOrder) {
+            return res.status(404).json({ error: 'Order not found or already confirmed' });
+        }
+
+        res.json({ message: 'Order confirmation updated successfully', updatedOrder });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+
+
+module.exports = router;

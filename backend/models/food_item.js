@@ -15,15 +15,17 @@ const FoodItemSchema = new Schema({
     type: String,
     required: true
   }, 
-  options:[{
-    varient:{
-      varientname: String,
-      varientprice: Number
-    }
-  }],
+  options:  [  ],
+  description: {
+    type: String
+  },
   description: {
     type: String,
     required: true
+  },
+  RestaurantId: {
+    type: String,
+    require: true
   }
 });
 

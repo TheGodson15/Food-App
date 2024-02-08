@@ -467,7 +467,7 @@ paths:
 
 
   /api/updateOrderConfirmation: 
-    post:
+    put:
       tags:
           - Restaurant
       summary: to confirm the order by the restaurant

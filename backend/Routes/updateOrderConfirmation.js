@@ -19,7 +19,7 @@ router.put('/updateOrderConfirmation', async (req, res) => {
             { $set: { 'order_data.$[outer].$[inner].orderConfirmation': true } },
             { arrayFilters: [{ 'outer.id': foodId }, { 'inner.id': foodId, 'inner.orderConfirmation': false }], new: true }
         );
-
+            
         if (!updatedOrder) {
             return res.status(404).json({ error: 'Order not found or already confirmed' });
         }
